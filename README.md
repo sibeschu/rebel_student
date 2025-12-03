@@ -141,9 +141,4 @@ pi = math.pi
 # Roll = 0, Pitch = 0, Yaw = 0: Roboter zeigt nach oben
 ```
 
-## Weitere Ressourcen
-
-- **Konstanten:** Siehe `igus_student/constants.py`
-- **Quellcode:** `igus_student/student_control.py`
-
 Viel Erfolg beim Programmieren!
