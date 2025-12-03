@@ -9,8 +9,11 @@ cd ~/rebel_student
 # Den Workspace bauen
 colcon build --symlink-install
 
-# Setup-Skript laden
-source install/setup.bash
+# --symlink-install erzeugt einen symbolischen Link zu den src-Dateien
+# ohne --symlink-install muss man nach jeder Änderung erneut über colcon build bauen
+
+# Workspace laden
+igus
 ```
 
 ### 2. Robot und MoveIt starten
