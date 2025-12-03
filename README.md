@@ -94,7 +94,7 @@ igus.move_ee_vertical(_robot, delta_z=0.1)
 
 ## Fehlerbehebung
 
-### NOT-AUS
+### Problem: NOT-AUS
 
 **Lösung:** NOT-AUS herausdrehen. `rebel.launch.py` neustarten.
 
@@ -107,7 +107,7 @@ ros2 launch igus_rebel_moveit_config igus_rebel_motion_planner.launch.py use_gui
 
 ### Problem: Roboter bewegt sich nicht
 
-**Lösungen:**
+**Lösung:**
 Überprüfe, ob die Zielposition im Arbeitsbereich des Roboters liegt
 
 ### Problem: Timeout beim Warten auf Bewegung
