@@ -54,7 +54,7 @@ ros2 run igus_student student_control
     │   │   └── student_control.py
 ```
 
-ab Zeile 80
+~ ab Zeile 80
 
 ## Grundlegende Funktionen
 
@@ -66,26 +66,33 @@ Bewegt den Roboter zu einer bestimmten Position und wartet, bis er dort angekomm
 - `x, y, z` (float): Kartesische Koordinaten in Metern (relativ zur Basis)
 - `roll, pitch, yaw` (float): Orientierung in Radiant (Euler-Winkel)
 
-**Rückgabewert:**
-- `True` wenn erfolgreich, `False` bei Fehler
+**Beispiel:**
+```python
+# Roboter zu Position (0.4, 0.2, 0.3) mit Orientierung (~π, 0, 0) bewegen
+_robot.move_and_wait(0.4, 0.2, 0.3, 3.14, 0.0, 0.0)
+```
+
+##### `igus.move_ee_vertical(node: Node, delta_z: float = 0.1)`
+
+Bewegt den Roboter 0.1m in z-Richtung.
+
+**Parameter:**
+- `node` (Node): Node des zu steuernden Objektes.
+- `delta_z` (float): Distanz in Meter, welche in Z-Richtung verfahren werden soll.
 
 **Beispiel:**
 ```python
-# Roboter zu Position (0.4, 0.2, 0.3) mit Orientierung (π, 0, 0) bewegen
-success = robot.move_and_wait(0.4, 0.2, 0.3, 3.14, 0.0, 0.0)
-if success:
-    print("Bewegung erfolgreich!")
-else:
-    print("Bewegung fehlgeschlagen!")
+# Roboter zu Position (0.4, 0.2, 0.3) mit Orientierung (~π, 0, 0) bewegen
+igus.move_ee_vertical(_robot, delta_z=0.1)
 ```
 
 ## Fehlerbehebung
 
-### Problem: "MoveGroup server not available"
+### Problem: "move_group server not available"
 
 **Lösung:** Stelle sicher, dass der Motion planner läuft:
 ```bash
-ros2 launch igus_rebel_moveit_config igus_rebel_motion_planner.launch.py
+ros2 launch igus_rebel_moveit_config igus_rebel_motion_planner.launch.py use_gui:=true
 ```
 
 ### Problem: Roboter bewegt sich nicht
