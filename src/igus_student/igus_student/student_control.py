@@ -81,6 +81,14 @@ def main():
         print("Robot controller initialized")
 
         print("Example program started")
+
+        # Roboter zu Position (0.4, 0.2, 0.3) mit Orientierung (π, 0, 0) bewegen
+        success = _robot.move_and_wait(0.4, 0.0, 0.1, 3.14, 0.0, 0.0)
+        if success:
+            print("Bewegung erfolgreich!")
+        else:
+            print("Bewegung fehlgeschlagen!")
+
         roll, pitch, yaw = euler_from_quaternion([0.998722, 0.0427602, 0.0197104, 0.0183904])
         # Move to first position - automatically waits
         #_robot.move_to_pose(0.4, 0.2, 0.3, roll, pitch, yaw)
@@ -88,22 +96,22 @@ def main():
 
         # Move to second position - automatically waits
         _robot.move_and_wait(0.4, 0.0, 0.015, 3.14, 0.0, 0.0)
-        print("Reached position 1")
+        print("move to pose Reached position 1")
 
         igus.move_ee_vertical(_robot, delta_z=0.1)
         
         _robot.move_and_wait(0.4, 0.1, 0.015, 3.14, 0.0, 0.0)
-        print("Reached position 2")
+        print("move to pose Reached position 2")
 
         igus.move_ee_vertical(_robot, delta_z=0.1)
         
         _robot.move_and_wait(0.4, 0.2, 0.015, 3.14, 0.0, 0.0)
-        print("Reached position 3")
+        print("move to pose Reached position 3")
 
         igus.move_ee_vertical(_robot, delta_z=0.1)
         
         _robot.move_and_wait(0.4, 0.3, 0.015, 3.14, 0.0, 0.0)
-        print("Reached position 4")
+        print("move to pose Reached position 4")
 
         igus.move_ee_vertical(_robot, delta_z=0.1)
 

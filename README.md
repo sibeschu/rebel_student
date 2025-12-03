@@ -34,7 +34,7 @@ ros2 run igus_student student_control
 ros2 launch igus_rebel rebel.launch.py
 
 # Terminal 2: Motion planner starten
-ros2 launch igus_rebel_moveit_config igus_rebel_motion_planner.launch.py
+ros2 launch igus_rebel_moveit_config igus_rebel_motion_planner.launch.py use_gui:=true
 
 # Terminal 3: Dein Student-Programm
 ros2 run igus_student student_control
