@@ -58,7 +58,9 @@ ros2 run igus_student student_control
 
 ## Grundlegende Funktionen
 
-##### `move_and_wait(x, y, z, roll, pitch, yaw)`
+```python 
+move_and_wait(x, y, z, roll, pitch, yaw)
+```
 
 Bewegt den Roboter zu einer bestimmten Position und wartet, bis er dort angekommen ist.
 
@@ -72,7 +74,9 @@ Bewegt den Roboter zu einer bestimmten Position und wartet, bis er dort angekomm
 _robot.move_and_wait(0.4, 0.2, 0.3, 3.14, 0.0, 0.0)
 ```
 
-##### `igus.move_ee_vertical(node: Node, delta_z: float = 0.1)`
+```python
+igus.move_ee_vertical(node: Node, delta_z: float = 0.1)
+```
 
 Bewegt den Roboter 0.1m in z-Richtung.
 
