@@ -94,6 +94,10 @@ igus.move_ee_vertical(_robot, delta_z=0.1)
 
 ## Fehlerbehebung
 
+### NOT-AUS
+
+**Lösung:** NOT-AUS herausdrehen. `rebel.launch.py` neustarten.
+
 ### Problem: "move_group server not available"
 
 **Lösung:** Stelle sicher, dass der Motion planner läuft:
