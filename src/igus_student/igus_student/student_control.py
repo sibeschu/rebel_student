@@ -71,58 +71,48 @@ _robot = None
 def main():
     global _robot
     
-    print("-" * 20 + "SIMPLE IGUS REBEL CONTROL" + "-" * 20)
+    print("STUDENT CONTROL STARTED")
   
     rclpy.init()
     
     try:
         _robot = StudentRobotController()
 
-        print("Starting motion sequence...")
+        print("Robot controller initialized")
 
-        while(1):
-            roll, pitch, yaw = euler_from_quaternion([0.998722, 0.0427602, 0.0197104, 0.0183904])
-            # Move to first position - automatically waits
-            #_robot.move_to_pose(0.4, 0.2, 0.3, roll, pitch, yaw)
-            print("Reached position 1", roll, pitch, yaw)
+        print("Example program started")
+        roll, pitch, yaw = euler_from_quaternion([0.998722, 0.0427602, 0.0197104, 0.0183904])
+        # Move to first position - automatically waits
+        #_robot.move_to_pose(0.4, 0.2, 0.3, roll, pitch, yaw)
+        print("Reached position 1", roll, pitch, yaw)
 
-            # Move to second position - automatically waits
-            _robot.move_and_wait(0.4, 0.0, 0.015, 3.14, 0.0, 0.0)
-            print("Reached position 1")
+        # Move to second position - automatically waits
+        _robot.move_and_wait(0.4, 0.0, 0.015, 3.14, 0.0, 0.0)
+        print("Reached position 1")
 
-            igus.move_ee_vertical(_robot, delta_z=0.1)
-            
-            _robot.move_and_wait(0.4, 0.1, 0.015, 3.14, 0.0, 0.0)
-            print("Reached position 2")
+        igus.move_ee_vertical(_robot, delta_z=0.1)
+        
+        _robot.move_and_wait(0.4, 0.1, 0.015, 3.14, 0.0, 0.0)
+        print("Reached position 2")
 
-            igus.move_ee_vertical(_robot, delta_z=0.1)
-            
-            _robot.move_and_wait(0.4, 0.2, 0.015, 3.14, 0.0, 0.0)
-            print("Reached position 3")
+        igus.move_ee_vertical(_robot, delta_z=0.1)
+        
+        _robot.move_and_wait(0.4, 0.2, 0.015, 3.14, 0.0, 0.0)
+        print("Reached position 3")
 
-            igus.move_ee_vertical(_robot, delta_z=0.1)
-            
-            _robot.move_and_wait(0.4, 0.3, 0.015, 3.14, 0.0, 0.0)
-            print("Reached position 4")
+        igus.move_ee_vertical(_robot, delta_z=0.1)
+        
+        _robot.move_and_wait(0.4, 0.3, 0.015, 3.14, 0.0, 0.0)
+        print("Reached position 4")
 
-            igus.move_ee_vertical(_robot, delta_z=0.1)
+        igus.move_ee_vertical(_robot, delta_z=0.1)
 
-            _robot.move_and_wait(0.4, 0.0, 0.15, 3.14, 0.0, 0.0)
-            print("Reached position 4")
+        _robot.move_and_wait(0.4, 0.0, 0.15, 3.14, 0.0, 0.0)
+        print("Reached position 4")
 
-            igus.move_ee_vertical(_robot, delta_z=0.1)
-
-        #_robot.move_to_pose(0.2, 0.2, 0.15, 3.14, 0.0, 0.0)
-
-         #while(1):
-            
-         #   _robot.move_to_pose(0.3, 0.0, 0.1, 3.14, 0.0, 0.0)
-          #  _robot.move_to_pose(0.4, 0.0, 0.1, 3.14, 0.0, 0.0)
-           # _robot.move_to_pose(0.4, 0.1, 0.1, 3.14, 0.0, 0.0)
-            #_robot.move_to_pose(0.3, 0.1, 0.1, 3.14, 0.0, 0.0)
-               
-
-        print("-" * 20 + "  PROGRAM COMPLETED  " + "-" * 20)
+        igus.move_ee_vertical(_robot, delta_z=0.1)
+   
+        print("PROGRAM COMPLETED")
         
     except KeyboardInterrupt:
         print("\nStopped by user (Ctrl+C)")

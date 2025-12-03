@@ -1,151 +1,127 @@
-#!/usr/bin/env python3
-"""
-Shows how to use a planning scene in MoveItPy to add collision objects and perform collision checking.
-"""
+# - IGUS Student -
 
-import time
-import rclpy
-from rclpy.logging import get_logger
+### 1. Workspace vorbereiten
 
-from moveit.planning import MoveItPy
+```bash
+# In das Workspace-Verzeichnis navigieren
+cd ~/rebel_student
 
-from geometry_msgs.msg import Pose
-from moveit_msgs.msg import CollisionObject
-from shape_msgs.msg import SolidPrimitive
+# Den Workspace bauen
+colcon build --symlink-install
 
+# Setup-Skript laden
+source install/setup.bash
+```
 
-def plan_and_execute(
-    robot,
-    planning_component,
-    logger,
-    sleep_time=0.0,
-):
-    """Helper function to plan and execute a motion."""
-    # plan to goal
-    logger.info("Planning trajectory")
-    plan_result = planning_component.plan()
+### 2. Robot und MoveIt starten
 
-    # execute the plan
-    if plan_result:
-        logger.info("Executing plan")
-        robot_trajectory = plan_result.trajectory
-        robot.execute(robot_trajectory, controllers=["igus_rebel_arm_controller"])
-    else:
-        logger.error("Planning failed")
+Bevor du dein Programm startest, musst du den Roboter und MoveIt starten:
 
-    time.sleep(sleep_time)
+#### Simulation
 
+```bash
+# Terminal 1: Robotersimulation starten
+ros2 launch igus_rebel_moveit_config igus_rebel_simulated.launch.py
 
-def add_collision_objects(planning_scene_monitor):
-    """Helper function that adds collision objects to the planning scene."""
-    object_positions = [
-        (0.15, 0.1, 0.5),
-        (0.25, 0.0, 1.0),
-        (-0.25, -0.3, 0.8),
-        (0.25, 0.3, 0.75),
-    ]
-    object_dimensions = [
-        (0.1, 0.4, 0.1),
-        (0.1, 0.4, 0.1),
-        (0.2, 0.2, 0.2),
-        (0.15, 0.15, 0.15),
-    ]
+# Terminal 2: Dein Student-Programm
+ros2 run igus_student student_control
+```
 
-    with planning_scene_monitor.read_write() as scene:
-        collision_object = CollisionObject()
-        collision_object.header.frame_id = "base_link"
-        collision_object.id = "boxes"
+#### Echter Roboter
 
-        for position, dimensions in zip(object_positions, object_dimensions):
-            box_pose = Pose()
-            box_pose.position.x = position[0]
-            box_pose.position.y = position[1]
-            box_pose.position.z = position[2]
+```bash
+# Terminal 1: Roboter verbinden
+ros2 launch igus_rebel rebel.launch.py
 
-            box = SolidPrimitive()
-            box.type = SolidPrimitive.BOX
-            box.dimensions = dimensions
+# Terminal 2: Motion planner starten
+ros2 launch igus_rebel_moveit_config igus_rebel_motion_planner.launch.py
 
-            collision_object.primitives.append(box)
-            collision_object.primitive_poses.append(box_pose)
-            collision_object.operation = CollisionObject.ADD
+# Terminal 3: Dein Student-Programm
+ros2 run igus_student student_control
+```
 
-        scene.apply_collision_object(collision_object)
-        scene.current_state.update()  # Important to ensure the scene is updated
+## Erste Schritte
 
+### Wo schreibe ich Code?
 
-def main():
-    ###################################################################
-    # MoveItPy Setup
-    ###################################################################
-    rclpy.init()
-    logger = get_logger("igus_rebel_planning_scene")
+└── src
+    ├── igus_student
+    │   ├── igus_student
+    │   │   └── student_control.py
 
-    # instantiate MoveItPy instance and get planning component
-    igus = MoveItPy(node_name="igus_planning_scene")
-    igus_rebel = igus.get_planning_component("igus_rebel_arm")
-    planning_scene_monitor = igus.get_planning_scene_monitor()
-    logger.info("MoveItPy instance created")
+ab Zeile 80
 
-    ###################################################################
-    # Plan with collision objects
-    ###################################################################
+## Grundlegende Funktionen
 
-    add_collision_objects(planning_scene_monitor)
-    igus_rebel.set_start_state(configuration_name="home")
-    igus_rebel.set_goal_state(configuration_name="sorting_home")
-    plan_and_execute(igus, igus_rebel, logger, sleep_time=3.0)
+##### `move_and_wait(x, y, z, roll, pitch, yaw)`
 
-    ###################################################################
-    # Check collisions
-    ###################################################################
-    with planning_scene_monitor.read_only() as scene:
-        robot_state = scene.current_state
-        original_joint_positions = robot_state.get_joint_group_positions("igus_rebel_arm")
+Bewegt den Roboter zu einer bestimmten Position und wartet, bis er dort angekommen ist.
 
-        # Set the pose goal
-        pose_goal = Pose()
-        pose_goal.position.x = 0.25
-        pose_goal.position.y = 0.25
-        pose_goal.position.z = 0.5
-        pose_goal.orientation.w = 1.0
+**Parameter:**
+- `x, y, z` (float): Kartesische Koordinaten in Metern (relativ zur Basis)
+- `roll, pitch, yaw` (float): Orientierung in Radiant (Euler-Winkel)
 
-        # Set the robot state and check collisions
-        robot_state.set_from_ik("igus_rebel", pose_goal, "ee_link")
-        robot_state.update()  # required to update transforms
-        robot_collision_status = scene.is_state_colliding(
-            robot_state=robot_state, joint_model_group_name="igus_rebel_arm", verbose=True
-        )
-        logger.info(f"\nRobot is in collision: {robot_collision_status}\n")
+**Rückgabewert:**
+- `True` wenn erfolgreich, `False` bei Fehler
 
-        # Restore the original state
-        robot_state.set_joint_group_positions(
-            "igus_rebel_arm",
-            original_joint_positions,
-        )
-        robot_state.update()  # required to update transforms
+**Beispiel:**
+```python
+# Roboter zu Position (0.4, 0.2, 0.3) mit Orientierung (π, 0, 0) bewegen
+success = robot.move_and_wait(0.4, 0.2, 0.3, 3.14, 0.0, 0.0)
+if success:
+    print("Bewegung erfolgreich!")
+else:
+    print("Bewegung fehlgeschlagen!")
+```
 
-    time.sleep(3.0)
+## Fehlerbehebung
 
-    ###################################################################
-    # Remove collision objects and return to the ready pose
-    ###################################################################
+### Problem: "MoveGroup server not available"
 
-    with planning_scene_monitor.read_write() as scene:
-        scene.remove_all_collision_objects()
-        scene.current_state.update()
+**Lösung:** Stelle sicher, dass der Motion planner läuft:
+```bash
+ros2 launch igus_rebel_moveit_config igus_rebel_motion_planner.launch.py
+```
 
-    igus_rebel.set_start_state_to_current_state()
-    igus_rebel.set_goal_state(configuration_name="sorting_home")
-    plan_and_execute(igus, igus_rebel, logger, sleep_time=3.0)
+### Problem: Roboter bewegt sich nicht
 
+**Lösungen:**
+Überprüfe, ob die Zielposition im Arbeitsbereich des Roboters liegt
 
-if __name__ == "__main__":
-    main()
-    
-    
-    
-    
-    
-    ros2 service call /set_digital_output igus_rebel_msgs/srv/SetDigitalOutput "{output: {output: 30, is_on: true}}"
+### Problem: Timeout beim Warten auf Bewegung
 
+Dies tritt auf, wenn der Roboter die Zielposition nicht erreichen kann. Mögliche Ursachen:
+- Position ist außerhalb des Arbeitsbereichs
+- Kollision mit Hindernis erkannt
+- Roboter kann die Orientierung nicht erreichen
+
+## Koordinatensystem
+
+### Kartesische Koordinaten (X, Y, Z)
+
+- **X-Achse:** Vorwärts/Rückwärts (in Meter)
+- **Y-Achse:** Links/Rechts (in Meter)
+- **Z-Achse:** Oben/Unten (in Meter)
+
+### Orientierung (Roll, Pitch, Yaw)
+
+Die Orientierung wird mit Euler-Winkeln in Radiant definiert:
+- **Roll:** Rotation um die X-Achse
+- **Pitch:** Rotation um die Y-Achse
+- **Yaw:** Rotation um die Z-Achse
+
+**Wichtige Konstanten:**
+```python
+import math
+
+pi = math.pi
+# Roll = π (180°) bedeutet: Roboter zeigt nach unten
+# Roll = 0, Pitch = 0, Yaw = 0: Roboter zeigt nach oben
+```
+
+## Weitere Ressourcen
+
+- **Konstanten:** Siehe `igus_student/constants.py`
+- **Quellcode:** `igus_student/student_control.py`
+
+Viel Erfolg beim Programmieren!
