@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: igus_rebel_description
+    relative_path: urdf/igus_rebel2.urdf
+  srdf:
+    relative_path: config/igus_rebel2.srdf
+  package_settings:
+    author_name: B
+    author_email: b@b.com
+    generated_timestamp: 1764428665
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
