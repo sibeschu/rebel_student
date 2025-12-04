@@ -10,7 +10,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/old/base_link.stl" />
+          filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/old/base_link.stl" />
       </geometry>
       <material
         name="">
@@ -49,7 +49,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/old/motor1.stl" />
+          filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/old/motor1.stl" />
       </geometry>
       <material
         name="">
@@ -101,7 +101,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/old/link1.stl" />
+          filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/old/link1.stl" />
       </geometry>
       <material
         name="">
@@ -161,7 +161,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/old/motor2.stl" />
+          filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/old/motor2.stl" />
       </geometry>
       <material
         name="">
@@ -213,7 +213,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/old/link2.stl" />
+          filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/old/link2.stl" />
       </geometry>
       <material
         name="">
@@ -273,7 +273,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/old/motor3.stl" />
+          filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/old/motor3.stl" />
       </geometry>
       <material
         name="">
@@ -325,7 +325,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/old/link3.stl" />
+          filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/old/link3.stl" />
       </geometry>
       <material
         name="">
@@ -385,7 +385,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/old/motor4.stl" />
+          filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/old/motor4.stl" />
       </geometry>
       <material
         name="">
@@ -437,7 +437,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/old/link4.stl" />
+          filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/old/link4.stl" />
       </geometry>
       <material
         name="">
@@ -497,7 +497,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/old/motor5.stl" />
+          filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/old/motor5.stl" />
       </geometry>
       <material
         name="">
@@ -549,7 +549,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/old/link5.stl" />
+          filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/old/link5.stl" />
       </geometry>
       <material
         name="">
@@ -609,7 +609,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/old/link6.stl" />
+          filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/old/link6.stl" />
       </geometry>
       <material
         name="">
@@ -673,7 +673,7 @@
         rpy="0 0 0" />
             <geometry>
                 <mesh
-          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/Greifer_Baugruppe.stl" scale="0.001 0.001 0.001" />
+          filename="file://$(find igus_rebel_description)/meshes/robolink_rebel2/gripper.stl" scale="0.001 0.001 0.001" />
             </geometry>
             <material
         name="">
