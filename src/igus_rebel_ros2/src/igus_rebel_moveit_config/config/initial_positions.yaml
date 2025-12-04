@@ -1,8 +1,8 @@
 # Default initial positions for igus_rebel's ros2_control fake system
 
 initial_positions:
-  gripper_l_joint: 0
-  gripper_r_joint: 0
+# gripper_l_joint: 0
+# gripper_r_joint: 0
   joint1: 0
   joint2: 0
   joint3: 0

@@ -42,5 +42,5 @@ def generate_launch_description():
         robot_trajectory_controller_spawner,
         # robot_position_controller_spawner,
         joint_state_broadcaster_spawner,
-        gripper_controller_spawner
+        # gripper_controller_spawner
     ])
