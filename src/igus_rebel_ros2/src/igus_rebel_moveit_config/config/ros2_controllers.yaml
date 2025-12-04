@@ -29,6 +29,7 @@ igus_rebel_arm_controller:
       - position
       - velocity
     allow_nonzero_velocity_at_trajectory_end: true
-igus_gripper_controller:
-  ros__parameters:
-    joint: gripper_l_joint
+
+#igus_gripper_controller:
+#  ros__parameters:
+#    joint: gripper_l_joint
