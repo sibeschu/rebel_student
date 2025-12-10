@@ -12,6 +12,7 @@ from .collision_objects import COLLISION_OBJECTS
 from .scene_builder import build_planning_scene
 from .goal_builder import safe_move_to, build_move_group_goal, is_moving_from_velocities, safe_move_and_wait
 from .helper import get_current_ee_pose, move_ee_vertical
+from .digital_out import DigitalOutputClient
 
 __all__ = [
     "PLANNING_GROUP",
@@ -28,5 +29,6 @@ __all__ = [
     "safe_move_and_wait",
     "build_move_group_goal",
     "is_moving_from_velocities",
-    "get_current_ee_pose"
+    "get_current_ee_pose",
+    "DigitalOutputClient"
 ]

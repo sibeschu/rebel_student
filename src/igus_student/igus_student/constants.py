@@ -4,7 +4,7 @@ PLANNING_GROUP = "igus_rebel_arm"
 END_EFFECTOR_LINK = "ee_link"
 REFERENCE_FRAME = "base_link"
 
-POSITION_TOLERANCE = 0.01  # m
+POSITION_TOLERANCE = 0.001  # m
 ORIENTATION_TOLERANCE = 0.01 # radians
 VELOCITY_THRESHOLD = 0.05 # for robot moving check
 MAX_VEL_FACTOR = 0.1

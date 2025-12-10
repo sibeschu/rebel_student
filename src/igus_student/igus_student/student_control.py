@@ -25,6 +25,8 @@ class StudentRobotController(Node):
             self, MoveGroup, "/move_action", 
             callback_group=self.callback_group
         )
+
+        self.gripper_client = igus.DigitalOutputClient()
         
         # pubs
         self.scene_publisher = self.create_publisher(
@@ -66,6 +68,14 @@ class StudentRobotController(Node):
             self, x, y, z, roll, pitch, yaw, action_client=self.move_client
         )
     
+    def close_gripper(self):
+        print("Closing gripper...")
+        self.gripper_client.set_output(30, True)
+
+    def open_gripper(self):
+        print("Opening gripper...")
+        self.gripper_client.set_output(30, False)
+
 _robot = None
 
 def main():
@@ -84,36 +94,8 @@ def main():
         """ !!! Z KOORDINATE CA +0.12 FÜR STIFTHALTER !!! """
         # Roboter zu Position (0.4, 0.0, 0.15) mit Orientierung (~π, 0, 0) bewegen
 
-        # roll, pitch, yaw = euler_from_quaternion([0.998722, 0.0427602, 0.0197104, 0.0183904])
-        # Move to first position - automatically waits
-        #_robot.move_to_pose(0.4, 0.0, 0.3, roll, pitch, yaw)
-        # print("Reached position 1", roll, pitch, yaw)
+        # Hier dein Code
 
-        # _robot.move_and_wait(0.4, 0.0, 0.15, 3.14, 0.0, 0.0)
-        # print("Reached position 1")
-
-        # igus.move_ee_vertical(_robot, delta_z=0.1)
-        
-        # _robot.move_and_wait(0.4, 0.1, 0.15, 3.14, 0.0, 0.0)
-        # print("Reached position 2")
-
-        # igus.move_ee_vertical(_robot, delta_z=0.1)
-        
-        # _robot.move_and_wait(0.4, 0.2, 0.15, 3.14, 0.0, 0.0)
-        # print("Reached position 3")
-
-        # igus.move_ee_vertical(_robot, delta_z=0.1)
-        
-        # _robot.move_and_wait(0.4, 0.3, 0.15, 3.14, 0.0, 0.0)
-        # print("Reached position 4")
-
-        # igus.move_ee_vertical(_robot, delta_z=0.1)
-
-        # _robot.move_and_wait(0.4, 0.0, 0.15, 3.14, 0.0, 0.0)
-        # print("Reached position 5")
-
-        # igus.move_ee_vertical(_robot, delta_z=0.1)
-   
         print("PROGRAM COMPLETED")
         
     except KeyboardInterrupt:

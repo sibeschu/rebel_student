@@ -4,7 +4,7 @@ trajectory_execution:
   allowed_execution_duration_scaling: 1.5
   allowed_goal_duration_margin: 1
   allowed_start_tolerance: 0.01
-  execution_duration_monitoring: true
+  execution_duration_monitoring: false
 
 controller_names:
     - rebel_arm_trajectory_controller
