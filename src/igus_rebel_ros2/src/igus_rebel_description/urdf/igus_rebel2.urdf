@@ -686,7 +686,7 @@
         xyz="0 0 -0.023"
         rpy="0 0 0" />
             <geometry>
-                <box size="0.1 0.13 0.08"></box>
+                <box size="0.09 0.10 0.08"></box>
             </geometry>
         </collision>
     </link>
@@ -815,4 +815,30 @@
   <origin xyz="0 0 0.17" rpy="0 0 0"/> <!-- translate to gripper tip -->
 </joint>
 
+<link name="camera_link">
+  <visual>
+  <origin xyz="0.03 0 -0.125" rpy="1.57 3.14 1.57"/>
+    <geometry>
+      <mesh filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/camera.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="camera_gray">
+      <color rgba="0.6 0.6 0.6 1.0"/>
+    </material>
+  </visual>
+
+  <!-- simple collision placeholder -->
+  <collision>
+    <origin xyz="0.02 0 -0.125" rpy="1.57 3.14 1.57"/>
+    <geometry>
+      <box size="0.09 0.025 0.025"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="link6_to_camera" type="fixed">
+  <parent link="link6"/>
+  <child link="camera_link"/>
+  <!-- matches your previously working static TF -->
+  <origin xyz="-0.066 0 0" rpy="0 -1.57 0"/>
+</joint>
 </robot>
