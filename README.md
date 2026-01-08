@@ -1,5 +1,14 @@
 # - IGUS Student -
 
+### Kamera installieren / inbetriebnehmen
+
+```bash
+sudo apt install ros-jazzy-librealsense2*
+
+sudo apt install ros-jazzy-realsense2-*
+
+```
+
 ### 1. Workspace vorbereiten
 
 ```bash
