@@ -101,6 +101,31 @@ Bewegt den Roboter 0.1m in z-Richtung.
 igus.move_ee_vertical(_robot, delta_z=0.1)
 ```
 
+## Kamera und Punktwolken
+
+### Nodes
+```bash
+# Node mit Blob-Detektor
+ros2 run igus_student puck_opencv
+
+# Node nimmt detektierte Punkte und überführt 2D zu 3D Punkten
+ros2 run igus_student puck_2d_to_3d
+
+```
+
+### Topics
+
+Verfügbare Topics sind : 
+
+```bash
+/puck_2d_coords
+/puck_3d_markers
+/puck_3d_points
+/puck_debug_image
+```
+
+weiteres Vorgehen wäre beispielsweise die Punkte in /puck_3d_points in einer eigenen Topic zu subscriben (siehe Dokumentation ROS2 Jazzy oder KI als Hilfe) und mittels dieser erkannten Punkte später eine Pfadplanung zu machen. Dabei können diese beliebig weggespeichert werden, da die Pucks sich im Idealfall ja nicht bewegen werden.
+
 ## Fehlerbehebung
 
 ### Problem: NOT-AUS
