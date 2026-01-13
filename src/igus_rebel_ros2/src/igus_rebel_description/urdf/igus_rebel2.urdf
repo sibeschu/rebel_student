@@ -817,7 +817,7 @@
 
 <link name="camera_link">
   <visual>
-  <origin xyz="0 0 0" rpy="1.57 3.14 1.57"/>
+  <origin xyz="0 0 0" rpy="1.57 3.14 1.57"/> 
     <geometry>
       <mesh filename="file://$(find igus_rebel_description)/meshes/IgusMeshes/camera.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -826,19 +826,14 @@
     </material>
   </visual>
 
-  <!-- simple collision placeholder -->
-  <!--<collision>
-    <origin xyz="0.02 0 -0.125" rpy="1.57 3.14 1.57"/>
-    <geometry>
-      <box size="0.09 0.025 0.025"/>
-    </geometry>
-  </collision>-->
+  <!-- 1.57 3.14 1.57-->
+  <!-- 0.068 0 0.093 -->
 </link>
 
 <joint name="link5_to_camera" type="fixed">
   <parent link="link5"/>
   <child link="camera_link"/>
   <!-- matches your previously working static TF -->
-  <origin xyz="0 0 0.05" rpy="0 -1.57 -3.14"/>
+  <origin xyz="0.068 0 0.093" rpy="0 -1.57 -3.14"/>
 </joint>
 </robot>

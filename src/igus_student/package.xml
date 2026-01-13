@@ -7,6 +7,9 @@
   <maintainer email="ubuntu@todo.todo">ubuntu</maintainer>
   <license>Apache-2.0</license>
 
+  <exec_depend>visualization_msgs</exec_depend>
+  <exec_depend>igus_student_msgs</exec_depend>
+  
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
   <test_depend>ament_pep257</test_depend>

@@ -45,9 +45,9 @@ def generate_launch_description():
             PathJoinSubstitution([camera_dir, 'launch', 'rs_launch.py'])
         ),
         launch_arguments={
-        'depth_module.depth_profile': '424x240x30',
-        'depth_module.infra_profile': '424x240x30',
-        'rgb_camera.color_profile': '424x240x30',
+        'depth_module.depth_profile': '640x480x30',
+        'depth_module.infra_profile': '640x480x30',
+        'rgb_camera.color_profile': '640x480x30',
         'enable_rgbd': 'true',
         'enable_sync': 'true',
         'align_depth.enable': 'true',

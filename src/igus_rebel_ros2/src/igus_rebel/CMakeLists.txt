@@ -23,6 +23,7 @@ find_package(pluginlib REQUIRED)
 # Include directories
 include_directories(
   include
+  ${PROJECT_NAME} SYSTEM PRIVATE /opt/ros/jazzy/include/pal_statistics
 )
 
 # Add hardware interface shared library
