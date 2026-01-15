@@ -29,17 +29,6 @@ def generate_launch_description():
 
     camera_dir = FindPackageShare('realsense2_camera')
 
-    # camera_to_link6_rel = TimerAction(
-    # period=10.0, # delay in s
-    # actions=[
-    # Node(
-    #     package='tf2_ros',
-    #     executable='static_transform_publisher',
-    #     arguments=['-0.066', '0', '0', '0', '-1.57', '0', 'link6', 'camera_link']
-    #     )]
-    # )
-
-
     realsense_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution([camera_dir, 'launch', 'rs_launch.py'])
@@ -56,16 +45,29 @@ def generate_launch_description():
         'publish_tf': 'true',
         'camera_namespace': 'rebel',
         'camera_name': 'camera',
-
-        # # FORCE frame naming so your static mount connects
-        # 'base_frame_id': 'camera_link',
-        # 'color_frame_id': 'camera_color_frame',
-        # 'color_optical_frame_id': 'camera_color_optical_frame',
-        # 'depth_frame_id': 'camera_depth_frame',
-        # 'depth_optical_frame_id': 'camera_depth_optical_frame',
         }.items(),
     )
 
+    puck_opencv_node = Node(
+        package='igus_student',
+        executable='puck_opencv',
+        name='puck_opencv',
+        output='screen'
+    )
+
+    puck_2d_to_3d_node = Node(
+        package='igus_student',
+        executable='puck_2d_to_3d',
+        name='puck_2d_to_3d',
+        output='screen'
+    )
+
+    puck_3d_to_world_node = Node(
+        package='igus_student',
+        executable='puck_3d_to_world',
+        name='puck_3d_to_world',
+        output='screen'
+    )
 
 
     return LaunchDescription([
@@ -74,5 +76,7 @@ def generate_launch_description():
         use_gui_arg,
         moveit_launch,
         realsense_launch,
-        # camera_to_link6_rel,
+        puck_opencv_node,
+        puck_2d_to_3d_node,
+        puck_3d_to_world_node
     ])

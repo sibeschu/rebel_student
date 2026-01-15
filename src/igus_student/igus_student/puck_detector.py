@@ -62,7 +62,7 @@ class ColorBlobs(Node):
         # color ranges for the masks
         red_mask1 = cv2.inRange(hsv_image, (0, 120, 40), (8, 255, 255))
         red_mask2 = cv2.inRange(hsv_image, (160, 100, 100), (180, 255, 255))
-        blue_mask = cv2.inRange(hsv_image, (104, 180, 40), (114, 255, 220))
+        blue_mask = cv2.inRange(hsv_image, (80, 150, 40), (120, 255, 220))
         red_mask = cv2.bitwise_or(red_mask1, red_mask2)
 
         # fill holes
@@ -84,17 +84,17 @@ class ColorBlobs(Node):
         self.publish_debug_image(bgr_image, blobs)
 
         # build Puck2DArray message and publish
-        msg = Puck2DArray()
-        msg.header = msg.header  # stamp + frame_id from the incoming color image
+        out = Puck2DArray()
+        out.header = msg.header  # stamp + frame_id from the incoming color image
 
         for b in blobs:
             p = Puck2D()
             p.label = b["label"]
             p.u = float(b["x"])
             p.v = float(b["y"])
-            msg.pucks.append(p)
+            out.pucks.append(p)
 
-        self.puck2d_pub.publish(msg)
+        self.puck2d_pub.publish(out)
 
         # uncomment for debug
         # if blobs:

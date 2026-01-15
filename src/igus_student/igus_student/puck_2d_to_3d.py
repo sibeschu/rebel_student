@@ -149,7 +149,7 @@ class Puck2DTo3D(Node):
             t.action = Marker.ADD
             t.pose.position.x = puck3.point.x
             t.pose.position.y = puck3.point.y
-            t.pose.position.z = puck3.point.z - 0.5 * self.puck_height + 0.002
+            t.pose.position.z = puck3.point.z + 0.5 * self.puck_height + 0.002
             t.pose.orientation.w = 1.0
             t.scale.z = 0.01
             t.color.r = 1.0; t.color.g = 1.0; t.color.b = 1.0; t.color.a = 1.0
