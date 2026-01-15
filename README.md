@@ -12,6 +12,7 @@
   - [Kamera und Punktwolken](#kamera-und-punktwolken)
     - [Nodes](#nodes)
     - [Topics](#topics)
+  - [Startposition](#startposition)
   - [Fehlerbehebung](#fehlerbehebung)
     - [Problem: NOT-AUS](#problem-not-aus)
     - [Problem: "move_group server not available"](#problem-move_group-server-not-available)
@@ -144,10 +145,11 @@ Verfügbare Topics sind :
 /puck_2d_coords
 /puck_3d_markers
 /puck_3d_points
+/puck_3d_points_world
 /puck_debug_image
 ```
 
-weiteres Vorgehen wäre beispielsweise eine Launch-Datei zu schreiben, um die Nodes nicht alle per Hand starten zu müssen. Hier die [Dokumentation](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Launch/Creating-Launch-Files.html) dafür. Idealerweise wird die bereits genutzte "ígus_rebel_motion_planner.launch.py" weiterverwendet. Die Punkte in /puck_3d_points in der eigenen Node zu subscriben (siehe Dokumentation ROS2 Jazzy) und mittels dieser Punkte später eine Pfadplanung zu machen. Dabei können diese beliebig weggespeichert werden, da die Pucks sich im Idealfall ja nicht bewegen werden.
+Die Punkte in /puck_3d_points in der eigenen Node zu subscriben (siehe Dokumentation ROS2 Jazzy) und mittels dieser Punkte später eine Pfadplanung zu machen. Dabei können diese beliebig weggespeichert werden, da die Pucks sich im Idealfall ja nicht bewegen werden.
 
 Siehe "subscriber_example.py". Gerne kann vergleichbare Funktionalität auch in student_control.py übernommen werden, um den Überblick zu behalten.
 
@@ -157,6 +159,11 @@ Siehe "subscriber_example.py". Gerne kann vergleichbare Funktionalität auch in 
 
 Wie man eigene msg-Typen (Interfaces) anlegt. (Nicht erforderlich für Einführung Robotik)
 [Custom ROS2 Interfaces](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Custom-ROS2-Interfaces.html)
+
+## Startposition 
+
+"Sorting" Position kann in src/igus_rebel_ros2/src/igus_rebel_moveit_config/config/igus_rebel2.srdf geändert werden. In dieser Datei einfach nach "sorting" suchen. Die Joint Positionen werden in RAD angegeben.
+
 ## Fehlerbehebung
 
 ### Problem: NOT-AUS
