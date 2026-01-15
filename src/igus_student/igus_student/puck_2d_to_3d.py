@@ -28,6 +28,9 @@ class Puck2DTo3D(Node):
         self.depth_encoding = None
         self.depth_stamp = None
 
+        self.puck_height = 0.015
+        self.puck_radius = 0.025
+
         self.fx = None
         self.fy = None
         self.cx = None
@@ -78,8 +81,12 @@ class Puck2DTo3D(Node):
             if u < 0 or v < 0 or u >= w or v >= h:
                 continue
 
-            z = self._depth_at(u, v)
-            if z is None:
+            z_surface = self._depth_at(u, v)
+            if z_surface is None:
+                continue
+
+            z = z_surface + 0.5 * self.puck_height
+            if z <= 0.0: 
                 continue
 
             # Pinhole projection
@@ -120,9 +127,9 @@ class Puck2DTo3D(Node):
             m.pose.orientation.w = 1.0
 
             # marker sizes
-            m.scale.x = 0.025
-            m.scale.y = 0.025
-            m.scale.z = 0.015
+            m.scale.x = self.puck_radius
+            m.scale.y = self.puck_radius
+            m.scale.z = self.puck_height
 
             if is_red:
                 m.color.r = 1.0; m.color.g = 0.1; m.color.b = 0.1; m.color.a = 0.9
@@ -142,7 +149,7 @@ class Puck2DTo3D(Node):
             t.action = Marker.ADD
             t.pose.position.x = puck3.point.x
             t.pose.position.y = puck3.point.y
-            t.pose.position.z = puck3.point.z + 0.01
+            t.pose.position.z = puck3.point.z - 0.5 * self.puck_height + 0.002
             t.pose.orientation.w = 1.0
             t.scale.z = 0.01
             t.color.r = 1.0; t.color.g = 1.0; t.color.b = 1.0; t.color.a = 1.0
