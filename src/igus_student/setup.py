@@ -26,7 +26,8 @@ setup(
         'console_scripts': [
             'student_control = igus_student.student_control:main',
             'puck_opencv = igus_student.puck_detector:main',
-            'puck_2d_to_3d = igus_student.puck_2d_to_3d:main'
+            'puck_2d_to_3d = igus_student.puck_2d_to_3d:main',
+            'subscriber_example = igus_student.subscriber_example:main'
         ],
     },
 )

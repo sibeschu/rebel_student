@@ -27,7 +27,6 @@ def make_detector(min_area=500.0, max_area=30000.0):
 
     params.minDistBetweenBlobs = 2.0
 
-    # keep shape filters off (mask can be imperfect)
     params.filterByCircularity = True
     params.minCircularity = 0.75
 
@@ -60,30 +59,28 @@ class ColorBlobs(Node):
         bgr_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
         hsv_image = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2HSV)
 
-        # tuned for your samples + highlights
+        # color ranges for the masks
         red_mask1 = cv2.inRange(hsv_image, (0, 120, 40), (8, 255, 255))
         red_mask2 = cv2.inRange(hsv_image, (160, 100, 100), (180, 255, 255))
         blue_mask = cv2.inRange(hsv_image, (104, 180, 40), (114, 255, 220))
         red_mask = cv2.bitwise_or(red_mask1, red_mask2)
 
-        # # fill holes / connect broken regions
+        # fill holes
         kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2, 2))
         red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_OPEN, kernel)
         red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_CLOSE, kernel)
-        # red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_CLOSE, self.kernel)
         blue_mask = cv2.morphologyEx(blue_mask, cv2.MORPH_CLOSE, self.kernel)
 
         red_blobs = self.detect_blobs(red_mask, "red puck")
         blue_blobs = self.detect_blobs(blue_mask, "blue puck")
 
-        # uncomment for debug
+        # uncomment for masks debug
         # self.show_debug("red", red_mask, red_blobs, (0, 0, 255))
         # self.show_debug("blue", blue_mask, blue_blobs, (255, 0, 0))
         # cv2.waitKey(1)
 
         blobs = red_blobs + blue_blobs
 
-        # debug image
         self.publish_debug_image(bgr_image, blobs)
 
         # build Puck2DArray message and publish

@@ -14,7 +14,6 @@ class Puck2DTo3D(Node):
     def __init__(self):
         super().__init__('puck_2d_to_3d')
 
-        # Topics (override via params if you want later)
         self.sub_2d = self.create_subscription(Puck2DArray, '/puck_2d_coords', self.cb_2d, 10)
         self.sub_depth = self.create_subscription(Image, '/rebel/camera/aligned_depth_to_color/image_raw', self.cb_depth, 10)
         self.sub_info = self.create_subscription(CameraInfo, '/rebel/camera/color/camera_info', self.cb_info, 10)
@@ -68,7 +67,7 @@ class Puck2DTo3D(Node):
         h, w = self.depth_img.shape[:2]
 
         out = Puck3DArray()
-        # publish in camera optical frame (use camera_info frame_id if available)
+        
         out.header.stamp = msg.header.stamp
         out.header.frame_id = self.frame_id if self.frame_id else msg.header.frame_id
 
@@ -83,7 +82,7 @@ class Puck2DTo3D(Node):
             if z is None:
                 continue
 
-            # Pinhole projection (camera optical frame)
+            # Pinhole projection
             x = (float(u) - self.cx) * z / self.fx
             y = (float(v) - self.cy) * z / self.fy
 
@@ -100,7 +99,6 @@ class Puck2DTo3D(Node):
 
         frame = out.header.frame_id
 
-        # delete old markers (ids 0..N from previous frame)
         delete_all = Marker()
         delete_all.header.stamp = now
         delete_all.header.frame_id = frame
@@ -111,7 +109,6 @@ class Puck2DTo3D(Node):
 
         for i, puck3 in enumerate(out.pucks):
             is_red = ("red" in puck3.label.lower())
-            # sphere
             m = Marker()
             m.header.stamp = now
             m.header.frame_id = frame
@@ -122,7 +119,7 @@ class Puck2DTo3D(Node):
             m.pose.position = puck3.point
             m.pose.orientation.w = 1.0
 
-            # puck size guess: set diameter ~ 0.075m or whatever is correct
+            # marker sizes
             m.scale.x = 0.025
             m.scale.y = 0.025
             m.scale.z = 0.015
@@ -156,7 +153,6 @@ class Puck2DTo3D(Node):
             self.pub_markers.publish(markers)
 
     def _depth_at(self, u: int, v: int):
-        # Use a small median window for robustness
         win = 2  # radius -> (2*win+1)^2
         vals = []
         h, w = self.depth_img.shape[:2]

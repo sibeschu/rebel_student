@@ -1,4 +1,27 @@
-# - IGUS Student -
+- [IGUS Student](#IGUS-Student)
+  - [Kamera installieren / inbetriebnehmen](#kamera-installieren--inbetriebnehmen)
+  - [Workspace vorbereiten](#1-workspace-vorbereiten)
+  - [Robot und MoveIt starten](#2-robot-und-moveit-starten)
+    - [Simulation](#simulation)
+    - [Echter Roboter](#echter-roboter)
+  - [Erste Schritte](#erste-schritte)
+    - [Wo schreibe ich Code?](#wo-schreibe-ich-code)
+  - [Grundlegende Funktionen](#grundlegende-funktionen)
+    - [`move_and_wait(x, y, z, roll, pitch, yaw)`](#move_and_waitx-y-z-roll-pitch-yaw)
+    - [`igus.move_ee_vertical(node-node-delta_z-float--01)`](#igusmove_ee_verticalnode-node-delta_z-float--01)
+  - [Kamera und Punktwolken](#kamera-und-punktwolken)
+    - [Nodes](#nodes)
+    - [Topics](#topics)
+  - [Fehlerbehebung](#fehlerbehebung)
+    - [Problem: NOT-AUS](#problem-not-aus)
+    - [Problem: "move_group server not available"](#problem-move_group-server-not-available)
+    - [Problem: Roboter bewegt sich nicht](#problem-roboter-bewegt-sich-nicht)
+    - [Problem: Timeout beim Warten auf Bewegung](#problem-timeout-beim-warten-auf-bewegung)
+  - [Koordinatensystem](#koordinatensystem)
+    - [Kartesische Koordinaten (X, Y, Z)](#kartesische-koordinaten-x-y-z)
+    - [Orientierung (Roll, Pitch, Yaw)](#orientierung-roll-pitch-yaw)
+
+# IGUS Student
 
 ### Kamera installieren / inbetriebnehmen
 
@@ -124,8 +147,16 @@ Verfügbare Topics sind :
 /puck_debug_image
 ```
 
-weiteres Vorgehen wäre beispielsweise die Punkte in /puck_3d_points in einer eigenen Topic zu subscriben (siehe Dokumentation ROS2 Jazzy oder KI als Hilfe) und mittels dieser erkannten Punkte später eine Pfadplanung zu machen. Dabei können diese beliebig weggespeichert werden, da die Pucks sich im Idealfall ja nicht bewegen werden.
+weiteres Vorgehen wäre beispielsweise eine Launch-Datei zu schreiben, um die Nodes nicht alle per Hand starten zu müssen. Hier die [Dokumentation](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Launch/Creating-Launch-Files.html) dafür. Idealerweise wird die bereits genutzte "ígus_rebel_motion_planner.launch.py" weiterverwendet. Die Punkte in /puck_3d_points in der eigenen Node zu subscriben (siehe Dokumentation ROS2 Jazzy) und mittels dieser Punkte später eine Pfadplanung zu machen. Dabei können diese beliebig weggespeichert werden, da die Pucks sich im Idealfall ja nicht bewegen werden.
 
+Siehe "subscriber_example.py". Gerne kann vergleichbare Funktionalität auch in student_control.py übernommen werden, um den Überblick zu behalten.
+
+[Writing a simple .py publisher and subscriber](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html)
+
+[Beispiele für Subscriber Nodes](https://github.com/ros2/examples/tree/jazzy/rclpy/topics)
+
+Wie man eigene msg-Typen (Interfaces) anlegt. (Nicht erforderlich für Einführung Robotik)
+[Custom ROS2 Interfaces](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Custom-ROS2-Interfaces.html)
 ## Fehlerbehebung
 
 ### Problem: NOT-AUS
